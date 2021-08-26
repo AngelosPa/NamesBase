@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const employeesDataSchema = new mongoose.Schema({
+const userDataSchema = new mongoose.Schema({
   userName: {
     type: String,
     // to trim
