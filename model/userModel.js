@@ -6,14 +6,14 @@ const userDataSchema = new mongoose.Schema({
     trim: true,
     // to make it required
     required: [true, "userName is must"],
-    // unique: true,
+    unique: true,
   },
   userPass: {
     type: String,
-    //required: true,
+
     required: [true, "you need a password"],
   },
-  // short way
+
   age: {
     type: Number,
     required: [true, "you need to enter your age"],
@@ -24,14 +24,14 @@ const userDataSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "come on write your mail"],
+    required: [true, "come on, write your mail"],
   },
   toolStack: {
     type: Array,
-    required: [
-      true,
-      "without a toolstack you shouldn't call yourself an fbw student ",
-    ],
+    //   required: [
+    //     true,
+    //     "without a toolstack you shouldn't call yourself an fbw student ",
+    //   ],
   },
 });
 

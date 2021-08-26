@@ -9,6 +9,8 @@ const {
   addNewUser,
   updateOneUser,
 } = require("../controllers/userController");
-router.route("/").get(getAllUsers);
-// .post(addNewUser);
+router.route("/").get(getAllUsers).post(addNewUser);
+
+router.route("/:userName").get(getOneUser);
+
 module.exports = router;
