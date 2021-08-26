@@ -5,12 +5,12 @@ const {
   basicUserDataControll,
   getAllUsers,
   getOneUser,
-  getAdd,
+
   addNewUser,
   updateOneUser,
 } = require("../controllers/userController");
 router.route("/").get(getAllUsers).post(addNewUser);
 
-router.route("/:userName").get(getOneUser);
+router.route("/:userName").get(getOneUser).patch(getOneUser, updateOneUser);
 
 module.exports = router;

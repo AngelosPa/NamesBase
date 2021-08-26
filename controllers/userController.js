@@ -31,7 +31,8 @@ const getOneUser = async (req, res, next) => {
   let user;
   try {
     user = await userData.findOne({ userName: req.params.userName });
-    console.log(`Gmiesaiiiiiiiiiiiiiiiii ${user} GAmiesaiiiiiiiiiiiiiiiii`);
+    console.log(`Gmiesaiiiiiiiiiiiiiiiii ${user.userName} GAmiesaiii`);
+    res.status(200).json(res.user);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
@@ -68,9 +69,40 @@ const addNewUser = async (req, res) => {
 };
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
+
+const updateOneUser = async (req, res) => {
+  const { userName, userPass, age, fbw, toolStack, email } = req.body;
+  if (userName) {
+    res.user.userName = userName;
+  }
+  if (userPass) {
+    res.user.userPass = userPass;
+  }
+  if (age) {
+    res.user.age = age;
+  }
+  if (email) {
+    res.user.email = email;
+  }
+  if (toolStack) {
+    res.user.toolStack = [toolStack];
+  }
+  if (fbw) {
+    res.user.fbw = fbw;
+  }
+  try {
+    await res.user.save();
+    console.log(`User ${res.user.userName} changed to ${userName}`);
+    // 200 for Successful OK
+    //res.status(200).json({ message: "Employee updated" });
+  } catch (err) {
+    // 400 for Bad request
+    res.status(400).json({ message: err.message });
+  }
+};
 module.exports = {
   getAllUsers,
   addNewUser,
-
+  updateOneUser,
   getOneUser,
 };
