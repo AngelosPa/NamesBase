@@ -1,20 +1,15 @@
 to run my application :
-npm init -y
-echo "PORT=5000" > .env
-echo "node_modules/" > .gitignore
-npm i express
-npm i dotenv
-npm i morgan
-npm i mongoose
-npm i nodemon --save-dev
-touch server.js app.js
-mkdir router model controllers
-touch router/employees.js
-touch model/employeesModel.js
-touch controllers/employeeController.js
-json script
-"start": "nodemon server.js"
-\*/
+
+- npm init -y
+- npm i express
+- npm i dotenv
+- npm i morgan
+- npm i mongoose
+- npm i nodemon --save-dev
+
+- json script
+  "start": "nodemon server.js"
+  \*/
 
 # Rest API
 
