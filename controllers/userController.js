@@ -3,13 +3,11 @@ const express = require("express");
 
 const getAllUsers = async (req, res) => {
   try {
-    // const employees = await EmployeesData.find().select("name age");
-
-    const employees = await userData.find();
+    const user = await userData.find();
     // 200 for Successful Ok
-    // console.log(employees);
+
     res.status(200).json(
-      employees.map((oneUser) => {
+      user.map((oneUser) => {
         return {
           employeeId: oneUser._id,
           user: oneUser.userName,

@@ -23,8 +23,15 @@ const userDataSchema = new mongoose.Schema({
     required: [true, "you need to tell us your classnumber"],
   },
   email: {
-    type: string,
+    type: String,
     required: [true, "come on write your mail"],
+  },
+  toolStack: {
+    type: Array,
+    required: [
+      true,
+      "without a toolstack you shouldn't call yourself an fbw student ",
+    ],
   },
 });
 

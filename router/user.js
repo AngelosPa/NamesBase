@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const EmployeesData = require("../model/employeesModel");
+const UserData = require("../model/userModel");
 const {
   basicUserDataControll,
   getAllUsers,
@@ -9,4 +9,6 @@ const {
   addNewUser,
   updateOneUser,
 } = require("../controllers/userController");
-router.route("/").get(getAllUsers).post(addNewUser);
+router.route("/").get(getAllUsers);
+// .post(addNewUser);
+module.exports = router;

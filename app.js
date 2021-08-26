@@ -18,9 +18,11 @@ mongoose
 
 //A `GET` request endpoint at `/` as a landing page for your API.
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome to our app");
+  res
+    .status(200)
+    .send("Welcome to my NamesBase app! I wish you have fun here ");
 });
 // http:localhost:5000/user
-const employees = require("./router/user");
-app.use("/user", employees);
+const user = require("./router/user");
+app.use("/user", user);
 module.exports = app;
