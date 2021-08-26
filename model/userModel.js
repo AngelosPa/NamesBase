@@ -28,4 +28,4 @@ const userDataSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("people", employeesDataSchema, "people");
+module.exports = mongoose.model("people", userDataSchema, "people");
