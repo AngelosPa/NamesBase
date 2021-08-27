@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { getOneUser } = require("../controllers/userController");
+const { alphabetical } = require("../controllers/userController");
 router.route("/").get(async (req, res) => {
   // 200 Successful Ok
   res
@@ -11,6 +11,6 @@ router.route("/").get(async (req, res) => {
     );
 });
 
-router.route("/:userName").get(getOneUser);
+router.route("/:userName").get(alphabetical);
 
 module.exports = router;

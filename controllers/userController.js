@@ -1,49 +1,56 @@
 const UserData = require("../model/userModel");
 const express = require("express");
+
 // to get all users from the database
 const getAllUsers = async (req, res) => {
   try {
     const user = await UserData.find();
-    // 200 for Successful Ok
 
     res.status(200).json(user);
-    // user.map((oneUser) => {
-    //   return {
-    //     _id: oneUser._id,
-    //     userName: oneUser.userName,
-    //     userPass: oneUser.userPass,
-    //     age: oneUser.age,
-    //     toolStack: oneUser.toolStack,
-    //     email: oneUser.email,
-    //     fbw: oneUser.fbw,
-    //   };
-    //})
-    //);
   } catch (err) {
-    // 500 Internal server error
     res.status(500).json({ message: err.message });
   }
 };
-//to get one user from the database
 
-// IT CONSOLE.LOG IT BUT POST MAN GIVE US NOT FOUND
+//middleware for the alphabetical order and capitilization of the array
+const alphabetical = async (req, res, next) => {
+  let user;
+  try {
+    user = await UserData.findOne({ userName: req.params.userName });
+    //let alpha = user.toolStack.sort();
+    user.userName =
+      (user.userName + "").charAt(0).toUpperCase() + user.userName.slice(1);
+    user.toolStack.sort();
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+  next();
+};
+//to find only one user from the database
 const getOneUser = async (req, res, next) => {
   let user;
   try {
-    user = await UserData.findOne({ userName: req.params._id });
-    console.log(`Gmiesaiiiiiiiiiiiiiiiii ${user.userName} GAmiesaiii`);
-    res.status(200).json(res.user);
+    user = await UserData.findOne({ userName: req.params.userName });
+
+    // res.status(200).json(user.userName);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
   }
+  //gia na to parei to epomeno middleware
   res.user = user;
   next();
 };
+//to show this one user
+const showoneUser = async (req, res) => {
+  // 200 Successful Ok
+  res.status(200).json(res.user.userName);
+};
 
 // Add new user
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
+
 const addNewUser = async (req, res) => {
   const user = new UserData({
     userName: req.body.userName,
@@ -55,11 +62,7 @@ const addNewUser = async (req, res) => {
   });
   try {
     // save
-
     const newUser = await user.save();
-
-    // 201 for Successful Created
-
     res.status(201).json(newUser);
     console.log(`User ${newUser} added`);
   } catch (err) {
@@ -69,12 +72,7 @@ const addNewUser = async (req, res) => {
     });
   }
 };
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 
-//update one user
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
-//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 const updateOneUser = async (req, res) => {
   const { userName, userPass, age, fbw, toolStack, email } = req.body;
   if (userName) {
@@ -97,7 +95,7 @@ const updateOneUser = async (req, res) => {
   }
   try {
     await res.user.save();
-    console.log(`User ${res.user.userName} changed to ${userName}`);
+    console.log(`User anonymus changed to ${userName}`);
     // 200 for Successful OK
     //res.status(200).json({ message: "Employee updated" });
   } catch (err) {
@@ -110,4 +108,7 @@ module.exports = {
   addNewUser,
   updateOneUser,
   getOneUser,
+
+  alphabetical,
+  showoneUser,
 };
