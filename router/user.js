@@ -11,6 +11,6 @@ const {
 } = require("../controllers/userController");
 router.route("/").get(getAllUsers).post(addNewUser);
 
-router.route("/:userName").get(getOneUser).patch(getOneUser, updateOneUser);
+router.route("/:_id").get(getOneUser).patch(getOneUser, updateOneUser);
 
 module.exports = router;

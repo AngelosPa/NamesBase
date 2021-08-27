@@ -5,26 +5,26 @@ const userDataSchema = new mongoose.Schema({
     // to trim
     trim: true,
     // to make it required
-    required: [true, "userName is must"],
-    unique: true,
+    required: true,
+    //unique: true
   },
   userPass: {
     type: String,
 
-    required: [true, "you need a password"],
+    required: true,
   },
 
   age: {
     type: Number,
-    required: [true, "you need to enter your age"],
+    required: true,
   },
   fbw: {
     type: Number,
-    required: [true, "you need to tell us your classnumber"],
+    required: true,
   },
   email: {
     type: String,
-    required: [true, "come on, write your mail"],
+    required: true,
   },
   toolStack: {
     type: Array,
@@ -36,3 +36,31 @@ const userDataSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("people", userDataSchema, "people");
+
+// const mongoose = require("mongoose");
+
+// const userSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//     max: 255,
+//     min: 8,
+//   },
+//   email: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//     max: 255,
+//     min: 8,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//     max: 1024,
+//     min: 8,
+//   },
+// });
+
+// const User = mongoose.model("people", userSchema, "people");
+
+// module.exports = User;

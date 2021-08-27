@@ -1,24 +1,24 @@
-const userData = require("../model/userModel");
+const UserData = require("../model/userModel");
 const express = require("express");
 // to get all users from the database
 const getAllUsers = async (req, res) => {
   try {
-    const user = await userData.find();
+    const user = await UserData.find();
     // 200 for Successful Ok
 
-    res.status(200).json(
-      user.map((oneUser) => {
-        return {
-          _id: oneUser._id,
-          userName: oneUser.userName,
-          userPass: oneUser.userPass,
-          age: oneUser.age,
-          toolStack: oneUser.toolStack,
-          email: oneUser.email,
-          fbw: oneUser.fbw,
-        };
-      })
-    );
+    res.status(200).json(user);
+    // user.map((oneUser) => {
+    //   return {
+    //     _id: oneUser._id,
+    //     userName: oneUser.userName,
+    //     userPass: oneUser.userPass,
+    //     age: oneUser.age,
+    //     toolStack: oneUser.toolStack,
+    //     email: oneUser.email,
+    //     fbw: oneUser.fbw,
+    //   };
+    //})
+    //);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
@@ -30,7 +30,7 @@ const getAllUsers = async (req, res) => {
 const getOneUser = async (req, res, next) => {
   let user;
   try {
-    user = await userData.findOne({ userName: req.params.userName });
+    user = await UserData.findOne({ userName: req.params._id });
     console.log(`Gmiesaiiiiiiiiiiiiiiiii ${user.userName} GAmiesaiii`);
     res.status(200).json(res.user);
   } catch (err) {
@@ -45,19 +45,21 @@ const getOneUser = async (req, res, next) => {
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 const addNewUser = async (req, res) => {
-  const user = new userData({
-    //IT DOESNT WORK STAY AWAY
+  const user = new UserData({
     userName: req.body.userName,
     userPass: req.body.userPass,
-    age: req.body.age,
     fbw: req.body.fbw,
+    age: req.body.age,
     email: req.body.email,
     toolStack: req.body.toolStack,
   });
   try {
     // save
+
     const newUser = await user.save();
+
     // 201 for Successful Created
+
     res.status(201).json(newUser);
     console.log(`User ${newUser} added`);
   } catch (err) {
@@ -70,6 +72,9 @@ const addNewUser = async (req, res) => {
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 //IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 
+//update one user
+//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
+//IT DOESNT WORK STAY AWAY//IT DOESNT WORK STAY AWAY
 const updateOneUser = async (req, res) => {
   const { userName, userPass, age, fbw, toolStack, email } = req.body;
   if (userName) {
