@@ -37,11 +37,11 @@ New user endpoint should be able to accept a JSON object like the following:
 
 ## For the endpoint `/user` that adds new user
 
-- Create a middleware method that will make sure the object received contains `userName`, `userPass`, `age`, `fbw` and `email`.
-- Create a middleware method that will check if the user is above 18 years old
-- Create a middleware method that will check if the user belongs to our FBW
-- If all the above is true, then you should send a response with a success message
-- If any of the middleware fails, you should send a response with an error message that says why the user is not valid.
+- I Created a middleware method that will make sure the object received contains `userName`, `userPass`, `age`, `fbw` and `email`.
+- I Created a middleware method that will check if the user is above 18 years old
+- I Created a middleware method that will check if the user belongs to our FBW
+- If all the above is true, then you should get a response with a success message
+- If any of the middleware fails, you should get a response with an error message that says why the user is not valid.
 
 #### EXAMPLE RESPONSES
 
@@ -67,9 +67,9 @@ New user endpoint should be able to accept a JSON object like the following:
 
 ## For the `/display/:name` endpoint:
 
-- Create a middleware that makes the `firstName` starts with a capital letter.
-- Create a middleware that sorts the `toolStack` array alphabetically.
-- Create a middleware that will turn `age` and `fbw` to numbers.
+- I Created a middleware that makes the `firstName` starts with a capital letter.
+- I Created a middleware that sorts the `toolStack` array alphabetically.
+- I Created a middleware that will turn `age` and `fbw` to numbers.
 
 #### EXAMPLE RESPONSES
 
