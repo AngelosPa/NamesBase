@@ -5,7 +5,10 @@ const userDataSchema = new mongoose.Schema({
     // to trim
     trim: true,
     // to make it required
-    required: [true, "userName is must"],
+    required: [
+      true,
+      " We can not validate your user. They are not a member of FBW48",
+    ],
     unique: true,
   },
   userPass: {
@@ -18,10 +21,19 @@ const userDataSchema = new mongoose.Schema({
   age: {
     type: Number,
     required: [true, "you need to enter your age"],
+    min: [
+      18,
+      "We can not validate your user. we don't accept pp that are below 18 years of age",
+    ],
+    max: 1000,
   },
   fbw: {
     type: Number,
     required: true,
+    enum: [
+      [48],
+      "We can not validate your user. They are not a member of FBW48",
+    ],
   },
   email: {
     type: String,
@@ -29,38 +41,7 @@ const userDataSchema = new mongoose.Schema({
   },
   toolStack: {
     type: Array,
-    //   required: [
-    //     true,
-    //     "without a toolstack you shouldn't call yourself an fbw student ",
-    //   ],
   },
 });
 
 module.exports = mongoose.model("people", userDataSchema, "people");
-
-// const mongoose = require("mongoose");
-
-// const userSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//     max: 255,
-//     min: 8,
-//   },
-//   password: {
-//     type: String,
-//     required: true,
-//     max: 1024,
-//     min: 8,
-//   },
-// });
-
-// const User = mongoose.model("people", userSchema, "people");
-
-// module.exports = User;

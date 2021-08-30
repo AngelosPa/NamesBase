@@ -63,8 +63,8 @@ const addNewUser = async (req, res) => {
   try {
     // save
     const newUser = await user.save();
-    res.status(201).json(newUser);
-    console.log(`User ${newUser} added`);
+    res.status(201).send(`This user is valid!User ${newUser.userName} added`);
+    console.log(`This user is valid!User ${newUser} added`);
   } catch (err) {
     // 400 for Bad request
     res.status(400).json({
@@ -103,12 +103,43 @@ const updateOneUser = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+// PUT AKA Update one user upon criteria
+//something to remember...
+// PUT vs PATCH
+// 	PATCH is used to update an existing entity with new information.
+//     You can’t patch an entity that doesn’t exist.
+
+//     PUT is used to set an entity’s information completely. PUTting is
+//     similar to POSTing, except that it will overwrite the entity
+//     if already exists or create it otherwise.
+const updateUser = async (req, res) => {
+  try {
+    await UserData.updateOne(
+      { name: req.params.name },
+      {
+        $set: {
+          userName: req.body.userName,
+          userPass: req.body.userPass,
+          age: req.body.age,
+          fbw: req.body.fbw,
+          email: req.body.email,
+          toolStack: req.body.toolStack,
+        },
+      }
+    );
+    // 200 OK
+    res.status(200).json({ message: "user got updated" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 module.exports = {
   getAllUsers,
   addNewUser,
   updateOneUser,
   getOneUser,
-
+  updateUser,
   alphabetical,
   showoneUser,
 };

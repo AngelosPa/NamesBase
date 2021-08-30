@@ -8,12 +8,14 @@ const {
   addNewUser,
   updateOneUser,
   showoneUser,
+  updateUser,
 } = require("../controllers/userController");
 router.route("/").get(getAllUsers).post(addNewUser);
 
 router
   .route("/:userName")
   .get(getOneUser, showoneUser)
-  .patch(getOneUser, updateOneUser);
+  .patch(getOneUser, updateOneUser)
+  .put(getOneUser, updateUser);
 
 module.exports = router;
