@@ -12,9 +12,10 @@ const getAllUsers = async (req, res) => {
   }
 };
 //
-
-//        ROUTE DISPLAY SECTION
-
+//
+//        ROUTE: DISPLAY/NAME SECTION
+//
+//
 //to find only one user from the database
 const getOnedDisplayUser = async (req, res, next) => {
   let user;
@@ -27,36 +28,73 @@ const getOnedDisplayUser = async (req, res, next) => {
     res.status(500).json({ message: err.message });
   }
   //gia na to parei to epomeno middleware
-  res.user = user;
+  res.dataFromMiddleware1 = user;
   next();
 };
 
-//middleware for the alphabetical order and capitilization
-const alphabetical = async (req, res, next) => {
+//middleware for the  capitilization
+const capitilization = async (req, res, next) => {
   try {
-    user = await UserData.findOne({ userName: req.params.userName });
-
+    user = res.dataFromMiddleware1;
+    console.log(user);
     user.userName =
       (user.userName + "").charAt(0).toUpperCase() + user.userName.slice(1);
     user.toolStack = user.toolStack.sort();
     user.age = user.age.toString();
     user.fbw = Number(user.fbw) * 1;
-    res.status(200).json(user);
+    // res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-  res.user = user;
+  res.dataFromMiddleware2 = user;
   next();
 };
+
+// middleware for the alphabetical order
+
+const alphabetical = async (req, res, next) => {
+  user = res.dataFromMiddleware2;
+  try {
+    user.toolStack = user.toolStack.sort();
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+  //  req.dataFromMiddleware1
+  res.dataFromMiddleware3 = user;
+  next();
+};
+
+// middleware for the numberConversion
+
+const numberConversion = async (req, res, next) => {
+  user = res.dataFromMiddleware3;
+  try {
+    user.age = user.age.toString();
+    user.fbw = Number(user.fbw) * 1.001;
+    // res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+  //  req.dataFromMiddleware1
+  res.dataFromMiddleware4 = user;
+
+  next();
+};
+
 //to show this one user
 const showonedisplayedUser = async (req, res) => {
   // 200 Successful Ok
-  res.status(200).json(res.user.userName);
+
+  res.dataFromMiddleware4 = user;
+  res.status(200).json(user);
 };
 //
 
 //END OF ROUTE DISPLAY SECTION
-
+//
+//
+//
+//
 //to find only one user from the database
 const getOneUser = async (req, res, next) => {
   let user;
@@ -179,5 +217,7 @@ module.exports = {
   alphabetical,
   showoneUser,
   getOnedDisplayUser,
+  capitilization,
   showonedisplayedUser,
+  numberConversion,
 };

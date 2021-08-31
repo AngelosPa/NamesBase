@@ -4,7 +4,9 @@ const router = express.Router();
 const {
   getOnedDisplayUser,
   alphabetical,
+  capitilization,
   showonedisplayedUser,
+  numberConversion,
 } = require("../controllers/userController");
 router.route("/").get(async (req, res) => {
   // 200 Successful Ok
@@ -15,6 +17,14 @@ router.route("/").get(async (req, res) => {
     );
 });
 
-router.route("/:userName").get(alphabetical);
+router
+  .route("/:userName")
+  .get(
+    getOnedDisplayUser,
+    capitilization,
+    alphabetical,
+    numberConversion,
+    showonedisplayedUser
+  );
 
 module.exports = router;

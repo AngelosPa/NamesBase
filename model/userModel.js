@@ -4,6 +4,7 @@ const userDataSchema = new mongoose.Schema({
     type: String,
     // to trim
     trim: true,
+    //lowercase: true,
     // to make it required
     required: [
       true,
@@ -19,7 +20,7 @@ const userDataSchema = new mongoose.Schema({
   },
 
   age: {
-    type: String,
+    type: {},
     required: [true, "you need to enter your age"],
     min: [
       18,
@@ -28,7 +29,7 @@ const userDataSchema = new mongoose.Schema({
     max: 1000,
   },
   fbw: {
-    type: String,
+    type: {},
     required: true,
     enum: [
       "48",
