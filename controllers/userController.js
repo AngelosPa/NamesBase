@@ -11,23 +11,52 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+//
 
-//middleware for the alphabetical order and capitilization of the array
-const alphabetical = async (req, res, next) => {
+//        ROUTE DISPLAY SECTION
+
+//to find only one user from the database
+const getOnedDisplayUser = async (req, res, next) => {
   let user;
   try {
     user = await UserData.findOne({ userName: req.params.userName });
-    //let alpha = user.toolStack.sort();
+
+    //res.status(200).json(user.userName);
+  } catch (err) {
+    // 500 Internal server error
+    res.status(500).json({ message: err.message });
+  }
+  //gia na to parei to epomeno middleware
+  res.user = user;
+  next();
+};
+
+//middleware for the alphabetical order and capitilization
+const alphabetical = async (req, res, next) => {
+  try {
+    user = await UserData.findOne({ userName: req.params.userName });
+
     user.userName =
       (user.userName + "").charAt(0).toUpperCase() + user.userName.slice(1);
-    user.toolStack.sort();
+    user.toolStack = user.toolStack.sort();
+    user.age = user.age.toString();
+    user.fbw = Number(user.fbw) * 1;
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-
+  res.user = user;
   next();
 };
+//to show this one user
+const showonedisplayedUser = async (req, res) => {
+  // 200 Successful Ok
+  res.status(200).json(res.user.userName);
+};
+//
+
+//END OF ROUTE DISPLAY SECTION
+
 //to find only one user from the database
 const getOneUser = async (req, res, next) => {
   let user;
@@ -53,10 +82,17 @@ const showoneUser = async (req, res) => {
 
 const addNewUser = async (req, res) => {
   const user = new UserData({
-    userName: req.body.userName,
+    userName: req.body.userName.toLowerCase(),
     userPass: req.body.userPass,
     fbw: req.body.fbw,
-    age: req.body.age,
+    age:
+      Number(req.body.age) > 18
+        ? req.body.age
+        : res
+            .status(400)
+            .send(
+              "We can not validate your user. we don't accept pp that are below 18 years of age"
+            ),
     email: req.body.email,
     toolStack: req.body.toolStack,
   });
@@ -142,4 +178,6 @@ module.exports = {
   updateUser,
   alphabetical,
   showoneUser,
+  getOnedDisplayUser,
+  showonedisplayedUser,
 };

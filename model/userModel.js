@@ -19,7 +19,7 @@ const userDataSchema = new mongoose.Schema({
   },
 
   age: {
-    type: Number,
+    type: String,
     required: [true, "you need to enter your age"],
     min: [
       18,
@@ -28,16 +28,16 @@ const userDataSchema = new mongoose.Schema({
     max: 1000,
   },
   fbw: {
-    type: Number,
+    type: String,
     required: true,
     enum: [
-      [48],
+      "48",
       "We can not validate your user. They are not a member of FBW48",
     ],
   },
   email: {
     type: String,
-    equired: [true, "come on, write your mail"],
+    required: [true, "come on, write your mail"],
   },
   toolStack: {
     type: Array,
