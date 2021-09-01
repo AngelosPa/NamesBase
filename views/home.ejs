@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>UserData</title>
+    <style>
+     ul {
+         display: inline-block;
+     }
+    
+     li {
+        display: block;
+        padding: 10px;
+        border: 1px black solid;
+
+      }
+      li p {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <%# soon btn 10 new pp, table %>
+    <!-- <form action="/" method="POST">
+      <input type="submit" value="Add more Data" />
+    </form> -->
+    <%if(user.length){%>
+    <div>
+
+  
+
+    <%for(let i=0;i< user.length;i++){%>
+        <ul>
+          
+            <li><p>name:&nbsp; </p><%=user[i].userName%></li>
+            <li><p>age: &nbsp;</p><%=user[i].age%></li>
+            <li><p>mail: &nbsp;</p><%=user[i].email%></li>
+        </ul>
+        <%}%>
+
+    <%}%>
+  </body>
+</html>

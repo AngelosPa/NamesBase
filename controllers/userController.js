@@ -12,7 +12,7 @@ const getAllUsers = async (req, res) => {
   try {
     const user = await UserData.find();
 
-    res.status(200).json(user);
+    res.render("home", { user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

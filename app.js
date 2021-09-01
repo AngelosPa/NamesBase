@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 const morgan = require("morgan");
-
+const path = require("path");
 //  Development mode info
 app.use(morgan("dev"));
 // to process the json data
@@ -17,7 +17,15 @@ mongoose
   .catch((error) => {
     console.log(`There was a problem ${error.message}`);
   });
+//
+//
+//      for the views
+//
+app.set("view engine", "ejs");
+app.set("views", path.resolve(__dirname, "views"));
 
+//
+//
 //A `GET` request endpoint at `/` as a landing page for your API.
 app.get("/", (req, res) => {
   res
