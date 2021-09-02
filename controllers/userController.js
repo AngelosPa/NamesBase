@@ -17,7 +17,7 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-// cool wat to organise our middleware inside an object for cleaner code
+// cool way to organize our middleware inside an object for cleaner code
 
 const midForUser = {};
 
@@ -26,7 +26,7 @@ midForUser.getOneUser = async (req, res, next) => {
   try {
     const user = await UserData.findOne({ userName: req.params.userName });
 
-    // res.status(200).json(user.userName);
+    res.status(200).json(user.userName);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
@@ -183,7 +183,7 @@ const getOnedDisplayUser = async (req, res, next) => {
 const capitilization = async (req, res, next) => {
   try {
     user = res.dataFromMiddleware1;
-    console.log(user);
+    //console.log(user);
     user.userName =
       (user.userName + "").charAt(0).toUpperCase() + user.userName.slice(1);
     user.toolStack = user.toolStack.sort();
@@ -233,6 +233,10 @@ const showonedisplayedUser = async (req, res) => {
   // 200 Successful Ok
 
   res.dataFromMiddleware4 = user;
+  console.log(user);
+  let name = user.userName;
+  console.log(name);
+  //res.render("userview", { user });
   res.status(200).json(user);
 };
 //

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>UserData</title>
+    <title>display</title>
     <!-- <link rel="stylesheet" href="./styles.css" /> -->
     <style>
       * {
@@ -41,36 +41,23 @@
     </style>
   </head>
   <body>
-    <%# soon btn 10 new pp, table %>
-    <!-- <form action="/" method="POST">
-      <input type="submit" value="Add more Data" />
-    </form> -->
-    <%if(user.length){%>
-
     <h1>
       WELCOME TO OUR MINIMAL HOMEPAGE, HERE YOU CAN SEE OUR AMAZING MEMBERS FROM
       OUR TINY DB
     </h1>
-    <%for(let i=0;i< user.length;i++){%>
+    <%for(let i=0;i< 4;i++){%>
     <ul>
       <li>
         <p>name:&nbsp;</p>
-        <%=user[i].userName%>
+        <%user%>
       </li>
       <li>
         <p>age: &nbsp;</p>
-        <%=user[i].age%>
       </li>
       <li>
         <p>mail: &nbsp;</p>
-        <%=user[i].email%>
-      </li>
-      <li>
-        <a href="http://localhost:5000/display/<%=user[i].userName%>">
-          click to view more about <%=user[i].userName%></a
-        >
       </li>
     </ul>
-    <%}%> <%}%>
+    <%}%>
   </body>
 </html>
