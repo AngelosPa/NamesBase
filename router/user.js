@@ -7,7 +7,7 @@ const {
   midForUser,
   addNewUser,
   updateOneUser,
-  showoneUser,
+
   updateUser,
 } = require("../controllers/userController");
 router
@@ -26,8 +26,8 @@ router
 //     if already exists or create it otherwise.
 router
   .route("/:userName")
-  .get(midForUser.getOneUser, showoneUser)
+  .get(midForUser.getOneUser)
   .patch(midForUser.getOneUser, updateOneUser)
-  .put(midForUser.getOneUser, updateUser);
+  .put(updateUser);
 
 module.exports = router;

@@ -23,16 +23,17 @@ const midForUser = {};
 
 //middleware to find only one user from the database
 midForUser.getOneUser = async (req, res, next) => {
+  let user;
   try {
     const user = await UserData.findOne({ userName: req.params.userName });
-
-    res.status(200).json(user.userName);
+    console.log(user);
+    res.user = user;
+    res.status(200).json(user);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
   }
-  //gia na to parei to epomeno middleware
-  res.user = user;
+
   next();
 };
 // middleware to check entries (for extra security apart from our schema ;)
@@ -123,7 +124,8 @@ const updateOneUser = async (req, res) => {
     await res.user.save();
     console.log(`User anonymus changed to ${userName}`);
     // 200 for Successful OK
-    //res.status(200).json({ message: "Employee updated" });
+    //(avoid it, it might crash)
+    // res.status(200).json({ message: "Employee updated" });
   } catch (err) {
     // 400 for Bad request
     res.status(400).json({ message: err.message });
@@ -147,15 +149,11 @@ const updateUser = async (req, res) => {
       }
     );
     // 200 OK
+    console.log("skata");
     res.status(200).json({ message: "user got updated" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
-//to show this one user
-const showoneUser = async (req, res) => {
-  // 200 Successful Ok
-  res.status(200).json(res.user.userName);
 };
 
 //
@@ -236,8 +234,8 @@ const showonedisplayedUser = async (req, res) => {
   console.log(user);
   let name = user.userName;
   console.log(name);
-  //res.render("userview", { user });
-  res.status(200).json(user);
+  res.render("userview", { user });
+  //res.status(200).json(user);
 };
 //
 
@@ -254,7 +252,7 @@ module.exports = {
   midForUser,
   updateUser,
   alphabetical,
-  showoneUser,
+
   getOnedDisplayUser,
   capitilization,
   showonedisplayedUser,

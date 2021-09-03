@@ -1,57 +1,84 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>UserData</title>
-    <!-- <link rel="stylesheet" href="./styles.css" /> -->
-    <style>
-      * {
-        color: white;
-        font-size: large;
-        letter-spacing: 1px;
-      }
-      body {
-        background-color: black;
-      }
-      ul {
-        display: inline-block;
-      }
-
-      li {
-        display: block;
-        padding: 10px;
-        border: 1px green solid;
-      }
-
-      li p {
-        display: inline-block;
-      }
-      a:hover {
-        background-color: green;
-      }
-      a:hover,
-      a:visited,
-      a {
-        padding: 5px;
-        color: inherit; /* blue colors for links too */
-        text-decoration: inherit; /* no underline */
-        box-shadow: 0 0 3px 3px green;
-        border-radius: 7%;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <%- include("./components/head.ejs");%>
   </head>
   <body>
-    <%# soon btn 10 new pp, table %>
-    <!-- <form action="/" method="POST">
-      <input type="submit" value="Add more Data" />
-    </form> -->
-    <%if(user.length){%>
-
+    <%# soon btn 10 new pp, table %> <%if(user.length){%>
     <h1>
-      WELCOME TO OUR MINIMAL HOMEPAGE, HERE YOU CAN SEE OUR AMAZING MEMBERS FROM
-      OUR TINY DB
+      WELCOME TO OUR MINIMAL HOMEPAGE, HERE YOU CAN SEE OUR <%=user.length%>
+      AMAZING MEMBERS FROM OUR TINY DB
     </h1>
+
+    <h3>Register to be a member of Fbw48 here</h3>
+    <div class="centralize">
+      <form class="row g-3 needs-validation" novalidate>
+        <div class="col-md-4 position-relative">
+          <label for="validationTooltip01" class="form-label">userName</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationTooltip01"
+            value="Mark"
+            required
+          />
+          <div class="valid-tooltip">Looks good!</div>
+        </div>
+        <div class="col-md-4 position-relative">
+          <label for="validationTooltip02" class="form-label">
+            userPass: <span class="text-danger">*</span>
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="validationTooltip02"
+            value="Otto"
+            required
+          />
+          <div class="valid-tooltip">Looks good!</div>
+        </div>
+        <div class="col-md-4 position-relative">
+          <label for="validationTooltipUsername" class="form-label"
+            >email</label
+          >
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="validationTooltipUsernamePrepend"
+              >@</span
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationTooltipUsername"
+              aria-describedby="validationTooltipUsernamePrepend"
+              required
+            />
+            <div class="invalid-tooltip">
+              Please choose a unique and valid username.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip03" class="form-label">fbw number</label>
+          <input
+            type="number"
+            class="form-control"
+            id="validationTooltip03"
+            required
+          />
+          <div class="invalid-tooltip">Please provide a valid input.</div>
+        </div>
+
+        <div class="col-12">
+          <button class="btn btn-dark" type="submit">Submit form</button>
+        </div>
+      </form>
+    </div>
     <%for(let i=0;i< user.length;i++){%>
+
     <ul>
       <li>
         <p>name:&nbsp;</p>

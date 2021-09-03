@@ -1,63 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>display</title>
-    <!-- <link rel="stylesheet" href="./styles.css" /> -->
-    <style>
-      * {
-        color: white;
-        font-size: large;
-        letter-spacing: 1px;
-      }
-      body {
-        background-color: black;
-      }
-      ul {
-        display: inline-block;
-      }
-
-      li {
-        display: block;
-        padding: 10px;
-        border: 1px green solid;
-      }
-
-      li p {
-        display: inline-block;
-      }
-      a:hover {
-        background-color: green;
-      }
-      a:hover,
-      a:visited,
-      a {
-        padding: 5px;
-        color: inherit; /* blue colors for links too */
-        text-decoration: inherit; /* no underline */
-        box-shadow: 0 0 3px 3px green;
-        border-radius: 7%;
-      }
-    </style>
+    <%- include("./components/head.ejs");%>
   </head>
   <body>
-    <h1>
-      WELCOME TO OUR MINIMAL HOMEPAGE, HERE YOU CAN SEE OUR AMAZING MEMBERS FROM
-      OUR TINY DB
-    </h1>
-    <%for(let i=0;i< 4;i++){%>
-    <ul>
-      <li>
-        <p>name:&nbsp;</p>
-        <%user%>
-      </li>
-      <li>
-        <p>age: &nbsp;</p>
-      </li>
-      <li>
-        <p>mail: &nbsp;</p>
-      </li>
-    </ul>
-    <%}%>
+    <div class="centralize">
+      <h1>
+        WELCOME TO OUR MINIMAL HOMEPAGE, HERE YOU CAN SEE
+        <%=user.userName.toUpperCase()%>
+      </h1>
+      <ul>
+        <li>
+          <p>name:&nbsp;</p>
+          <%=user.userName%>
+        </li>
+        <li>
+          <p>Age:&nbsp;<%=user.age%> &nbsp;</p>
+        </li>
+        <li>
+          <p>Mail:&nbsp;<%=user.email%></p>
+        </li>
+        <li>
+          <p>Tools:&nbsp;<%=user.toolStack%></p>
+        </li>
+        <li>
+          <p>FBW:&nbsp;<%=user.email%></p>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
