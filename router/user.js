@@ -10,11 +10,10 @@ const {
 
   updateUser,
 } = require("../controllers/userController");
-router
-  .route("/")
-  .get(getAllUsers)
-  .post(midForUser.checkUserDataAgain, midForUser.checkAge, addNewUser);
-
+router.route("/").get(getAllUsers).post(addNewUser);
+// FOR POST midForUser.checkUserDataAgain, midForUser.checkAge,
+//
+//
 // PUT AKA Update one user upon criteria
 //something to remember...
 // PUT vs PATCH

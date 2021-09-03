@@ -16,13 +16,19 @@
 
     <h3>Register to be a member of Fbw48 here</h3>
     <div class="centralize">
-      <form class="row g-3 needs-validation" novalidate>
+      <form
+        action="/user"
+        method="POST"
+        class="row g-3 needs-validation"
+        novalidate
+      >
         <div class="col-md-4 position-relative">
           <label for="validationTooltip01" class="form-label">userName</label>
           <input
             type="text"
             class="form-control"
-            id="validationTooltip01"
+            id="userName"
+            name="userName"
             value="Mark"
             required
           />
@@ -35,7 +41,8 @@
           <input
             type="password"
             class="form-control"
-            id="validationTooltip02"
+            id="userPass"
+            name="userPass"
             value="Otto"
             required
           />
@@ -52,7 +59,8 @@
             <input
               type="text"
               class="form-control"
-              id="validationTooltipUsername"
+              id="email"
+              name="email"
               aria-describedby="validationTooltipUsernamePrepend"
               required
             />
@@ -66,7 +74,8 @@
           <input
             type="number"
             class="form-control"
-            id="validationTooltip03"
+            id="fbw"
+            name="fbw"
             required
           />
           <div class="invalid-tooltip">Please provide a valid input.</div>
