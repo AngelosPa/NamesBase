@@ -5,8 +5,6 @@ const morgan = require("morgan");
 const path = require("path");
 //  Development mode info
 app.use(morgan("dev"));
-// to process the json data
-app.use(express.json());
 
 // monogDB
 const mongoose = require("mongoose");
@@ -26,6 +24,15 @@ app.set("views", path.resolve(__dirname, "views"));
 
 //
 //
+//
+
+app.use(express.json());
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 //A `GET` request endpoint at `/` as a landing page for your API.
 app.get("/", (req, res) => {
   res

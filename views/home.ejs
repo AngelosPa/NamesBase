@@ -80,33 +80,45 @@
           />
           <div class="invalid-tooltip">Please provide a valid input.</div>
         </div>
-
+        <div class="col-md-6 position-relative">
+          <label for="validationTooltip03" class="form-label">age</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            name="age"
+            required
+          />
+          <div class="invalid-tooltip">Please provide a valid input.</div>
+        </div>
         <div class="col-12">
           <button class="btn btn-dark" type="submit">Submit form</button>
         </div>
       </form>
     </div>
-    <%for(let i=0;i< user.length;i++){%>
+    <div class="contenti">
+      <%for(let i=0;i< user.length;i++){%>
 
-    <ul>
-      <li>
-        <p>name:&nbsp;</p>
-        <%=user[i].userName%>
-      </li>
-      <li>
-        <p>age: &nbsp;</p>
-        <%=user[i].age%>
-      </li>
-      <li>
-        <p>mail: &nbsp;</p>
-        <%=user[i].email%>
-      </li>
-      <li>
-        <a href="http://localhost:5000/display/<%=user[i].userName%>">
-          click to view more about <%=user[i].userName%></a
-        >
-      </li>
-    </ul>
-    <%}%> <%}%>
+      <ul>
+        <li>
+          <p>name:&nbsp;</p>
+          <%=user[i].userName%>
+        </li>
+        <li>
+          <p>age: &nbsp;</p>
+          <%=user[i].age%>
+        </li>
+        <li>
+          <p>mail: &nbsp;</p>
+          <%=user[i].email%>
+        </li>
+        <li>
+          <a href="http://localhost:5000/display/<%=user[i].userName%>">
+            more about <%=user[i].userName%></a
+          >
+        </li>
+      </ul>
+      <%}%> <%}%>
+    </div>
   </body>
 </html>

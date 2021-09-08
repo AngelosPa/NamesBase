@@ -8,11 +8,12 @@ const express = require("express");
 //
 //
 // to get all users from the database
+let done = true;
 const getAllUsers = async (req, res) => {
   try {
     const user = await UserData.find();
 
-    res.render("home", { user });
+    return res.render("home", { user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -70,8 +71,25 @@ midForUser.checkFbW = (req, res, next) => {
   }
   next();
 };
+//
+//
+//
+//            LETS ADD VALIDATORS !
+//
+//
+//
+const { body, validationResult } = require("express-validator");
 
 const addNewUser = async (req, res) => {
+  body("userName", "Please write valid username ").isLength({ min: 3, max: 9 }),
+    body("fbw", "Please write valid email "),
+    body("age", "Please write valid email "),
+    body("email", "Please write valid email ").isEmail(),
+    body("userPass", "Invalid password")
+      .isLength({ min: 5 })
+      .withMessage("must be at least 5 chars long")
+      .matches(/\d/)
+      .withMessage("must contain a number");
   const user = new UserData({
     userName: req.body.userName.toLowerCase(),
     userPass: req.body.userPass,
@@ -90,8 +108,17 @@ const addNewUser = async (req, res) => {
   try {
     // save
     const newUser = await user.save();
-    res.status(201).send(`This user is valid!User ${newUser.userName} added`);
-    console.log(`This user is valid!User ${newUser} added`);
+    // res.status(201).send(`This user is valid!User ${newUser.userName} added`);
+    console.log(`This user is valid!User ${newUser.userName} added`);
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      return res.render("home", "error");
+      //keep in mind to use return , it will save you ;)
+      // https://poopcode.com/error-err_http_headers_sent-cannot-set-headers-after-they-are-sent-to-the-client-how-to-fix/
+    } else {
+      return res.render("welcome", { newUser });
+    }
   } catch (err) {
     // 400 for Bad request
     res.status(400).json({
