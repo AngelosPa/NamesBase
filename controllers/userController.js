@@ -12,8 +12,9 @@ let done = true;
 const getAllUsers = async (req, res) => {
   try {
     const user = await UserData.find();
-
+    console.log(user);
     return res.render("home", { user });
+    //thats the same thing: but they have the same key and name so u can minimize it to user  res.render("home", { user:user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -104,6 +105,7 @@ const addNewUser = async (req, res) => {
             ),
     email: req.body.email,
     toolStack: req.body.toolStack,
+    toolStackdescription: req.body.toolStackdescription,
   });
   try {
     // save
@@ -128,7 +130,15 @@ const addNewUser = async (req, res) => {
 };
 
 const updateOneUser = async (req, res) => {
-  const { userName, userPass, age, fbw, toolStack, email } = req.body;
+  const {
+    userName,
+    userPass,
+    age,
+    fbw,
+    toolStack,
+    email,
+    toolStackdescription,
+  } = req.body;
   if (userName) {
     res.user.userName = userName;
   }
@@ -146,6 +156,9 @@ const updateOneUser = async (req, res) => {
   }
   if (fbw) {
     res.user.fbw = fbw;
+  }
+  if (toolStackdescription) {
+    res.user.toolStackdescription = toolStackdescription;
   }
   try {
     await res.user.save();
@@ -172,6 +185,7 @@ const updateUser = async (req, res) => {
           fbw: req.body.fbw,
           email: req.body.email,
           toolStack: req.body.toolStack,
+          toolStackdescription: req.body.toolStackdescription,
         },
       }
     );

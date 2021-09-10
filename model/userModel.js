@@ -1,4 +1,12 @@
 const mongoose = require("mongoose");
+const toolStackdescription = new mongoose.Schema({
+  _id: false,
+
+  css: String,
+  html: String,
+  js: String,
+  react: String,
+});
 const userDataSchema = new mongoose.Schema({
   userName: {
     type: String,
@@ -43,6 +51,7 @@ const userDataSchema = new mongoose.Schema({
   toolStack: {
     type: Array,
   },
+  toolStackdescription: [toolStackdescription],
 });
 
 module.exports = mongoose.model("people", userDataSchema, "people");
