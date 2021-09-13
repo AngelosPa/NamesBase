@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 //  Development mode info
 app.use(morgan("dev"));
-
+app.use(express.json());
 // monogDB
 const mongoose = require("mongoose");
 const DB_URL = process.env.DB_URL;
@@ -25,8 +25,6 @@ app.set("views", path.resolve(__dirname, "views"));
 //
 //
 //
-
-app.use(express.json());
 
 app.use(
   express.urlencoded({

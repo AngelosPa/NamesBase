@@ -1,3 +1,5 @@
+//npx install express generator "--ejs"
+
 require("dotenv").config();
 const http = require("http");
 const app = require("./app");

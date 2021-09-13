@@ -24,15 +24,17 @@
           <p>Tools:&nbsp;<%=user.toolStack%></p>
         </li>
         <li>
-          <p>FBW:&nbsp;<%=user.email%></p>
-        </li>
-        <li>
-          <p>
-            NOTES:&nbsp;<%=user.toolStackdescription.map((el)=>`css: ${el.css}
-            *|* html: ${el.html} *|* react: ${el.react} *|* js: ${el.js}` )%>
-          </p>
+          <p>FBW:&nbsp;<%=user.fbw%></p>
         </li>
       </ul>
+      <% /* %>
+      <li>
+        <p>
+          NOTES:&nbsp;<%=user.toolStackdescription.map((el)=>`css: ${el.css} *|*
+          html: ${el.html} *|* react: ${el.react} *|* js: ${el.js}` )%>
+        </p>
+      </li>
+      <% */ %>
     </div>
   </body>
 </html>

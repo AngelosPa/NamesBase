@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
-const toolStackdescription = new mongoose.Schema({
-  _id: false,
-
-  css: String,
-  html: String,
-  js: String,
-  react: String,
-});
-const userDataSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const userDataSchema = Schema({
+  _id: Schema.Types.ObjectId,
   userName: {
     type: String,
     // to trim
@@ -51,7 +45,19 @@ const userDataSchema = new mongoose.Schema({
   toolStack: {
     type: Array,
   },
-  toolStackdescription: [toolStackdescription],
+  toolStackdescription: [
+    { type: Schema.Types.ObjectId, ref: "toolStackDescription" },
+  ],
 });
-
-module.exports = mongoose.model("people", userDataSchema, "people");
+const toolStackdescriptionSchema = Schema({
+  toolStackdescription: {
+    type: Schema.Types.ObjectId,
+    ref: "toolStackDescription",
+  },
+  css: String,
+  html: String,
+  js: String,
+});
+const User = mongoose.model("people", userDataSchema, "people");
+const Tool = mongoose.model("toolStackDescription", toolStackdescriptionSchema);
+module.exports = { User, Tool };

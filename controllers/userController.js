@@ -1,4 +1,4 @@
-const UserData = require("../model/userModel");
+const { User, Tool } = require("../model/userModel");
 const express = require("express");
 //
 
@@ -11,7 +11,7 @@ const express = require("express");
 let done = true;
 const getAllUsers = async (req, res) => {
   try {
-    const user = await UserData.find();
+    const user = await User.find();
     console.log(user);
     return res.render("home", { user });
     //thats the same thing: but they have the same key and name so u can minimize it to user  res.render("home", { user:user });
@@ -27,10 +27,10 @@ const midForUser = {};
 midForUser.getOneUser = async (req, res, next) => {
   let user;
   try {
-    const user = await UserData.findOne({ userName: req.params.userName });
+    const user = await User.findOne({ userName: req.params.userName });
     console.log(user);
     res.user = user;
-    res.status(200).json(user);
+    res.status(200).json(user.userName);
   } catch (err) {
     // 500 Internal server error
     res.status(500).json({ message: err.message });
@@ -39,7 +39,7 @@ midForUser.getOneUser = async (req, res, next) => {
   next();
 };
 // middleware to check entries (for extra security apart from our schema ;)
-midForUser.checkUserDataAgain = async (req, res, next) => {
+midForUser.checkUserAgain = async (req, res, next) => {
   const { userName, userPass, age, fbw, email } = req.body;
   // you can do !userName or userName == null both are cool
   if (!userName || !userPass || age == null || fbw == null || email == null) {
@@ -79,6 +79,44 @@ midForUser.checkFbW = (req, res, next) => {
 //
 //
 //
+// POST new toolStackdescription
+
+// {
+// 	"css":"gut",
+// "html":"sehr gut",
+// "js":"x"
+// }
+
+const addNewDescription = async (req, res) => {
+  User.findById(req.params.id)
+    .then((xuser) => {
+      console.log(xuser.toolStackdescription);
+
+      xuser.toolStackdescription.push({
+        css: "gut",
+        html: "sehr gut",
+        js: "x",
+      });
+    })
+    .then((xuser) => {
+      // const tool = new Tool({
+      //   _id: new mongoose.Types.ObjectId(),
+      //   css: req.body.css,
+      //   html: req.body.html,
+      //   js: req.body.js,
+      // });
+      tool.save();
+      xuser.toolStackdescription.push(tool);
+      xuser.save();
+      console.log(xuser);
+      res.status(201).json(xuser);
+    })
+
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
 const { body, validationResult } = require("express-validator");
 
 const addNewUser = async (req, res) => {
@@ -91,7 +129,7 @@ const addNewUser = async (req, res) => {
       .withMessage("must be at least 5 chars long")
       .matches(/\d/)
       .withMessage("must contain a number");
-  const user = new UserData({
+  const user = new User({
     userName: req.body.userName.toLowerCase(),
     userPass: req.body.userPass,
     fbw: req.body.fbw,
@@ -175,7 +213,7 @@ const updateOneUser = async (req, res) => {
 const updateUser = async (req, res) => {
   //this $set is used to update the fields and it belongs to mongoose
   try {
-    await UserData.updateOne(
+    await User.updateOne(
       { name: req.params.name },
       {
         $set: {
@@ -206,7 +244,7 @@ const updateUser = async (req, res) => {
 const getOnedDisplayUser = async (req, res, next) => {
   let user;
   try {
-    user = await UserData.findOne({ userName: req.params.userName });
+    user = await User.findOne({ userName: req.params.userName });
 
     //res.status(200).json(user.userName);
   } catch (err) {
@@ -293,7 +331,7 @@ module.exports = {
   midForUser,
   updateUser,
   alphabetical,
-
+  addNewDescription,
   getOnedDisplayUser,
   capitilization,
   showonedisplayedUser,

@@ -7,7 +7,7 @@ const {
   midForUser,
   addNewUser,
   updateOneUser,
-
+  addNewDescription,
   updateUser,
 } = require("../controllers/userController");
 router.route("/").get(getAllUsers).post(addNewUser);
@@ -24,9 +24,10 @@ router.route("/").get(getAllUsers).post(addNewUser);
 //     similar to POSTing, except that it will overwrite the entity
 //     if already exists or create it otherwise.
 router
-  .route("/:userName")
+  .route("/:id")
   .get(midForUser.getOneUser)
   .patch(midForUser.getOneUser, updateOneUser)
-  .put(updateUser);
+  .put(updateUser)
+  .post(addNewDescription);
 
 module.exports = router;
