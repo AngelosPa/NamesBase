@@ -1,5 +1,6 @@
 const { User, Tool } = require("../model/userModel");
 const express = require("express");
+const mongoose = require("mongoose");
 //
 
 //
@@ -90,25 +91,17 @@ midForUser.checkFbW = (req, res, next) => {
 const addNewDescription = async (req, res) => {
   User.findById(req.params.id)
     .then((xuser) => {
-      console.log(xuser.toolStackdescription);
-
-      xuser.toolStackdescription.push({
-        css: "gut",
-        html: "sehr gut",
-        js: "x",
+      const tool = new Tool({
+        _id: new mongoose.Types.ObjectId(),
+        css: req.body.css,
+        html: req.body.html,
+        js: req.body.js,
       });
-    })
-    .then((xuser) => {
-      // const tool = new Tool({
-      //   _id: new mongoose.Types.ObjectId(),
-      //   css: req.body.css,
-      //   html: req.body.html,
-      //   js: req.body.js,
-      // });
       tool.save();
       xuser.toolStackdescription.push(tool);
-      xuser.save();
       console.log(xuser);
+      xuser.save();
+
       res.status(201).json(xuser);
     })
 
@@ -130,6 +123,7 @@ const addNewUser = async (req, res) => {
       .matches(/\d/)
       .withMessage("must contain a number");
   const user = new User({
+    _id: new mongoose.Types.ObjectId(),
     userName: req.body.userName.toLowerCase(),
     userPass: req.body.userPass,
     fbw: req.body.fbw,
